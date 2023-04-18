@@ -29,5 +29,6 @@ Route.group(() => {
   Route.post('/login', 'LoginController.login')
   Route.post('/logout', 'LoginController.logout')
   Route.post('/register', 'UsersController.store')
+  Route.get('/register', 'UsersController.index')
 })
 

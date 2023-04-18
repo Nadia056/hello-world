@@ -17,7 +17,7 @@ export default class LoginController {
               return 400
             }
         const token = await auth.use('api').attempt(email, password)
-        return token.token
+        return{ token: token.token }
     }
     //make a logout 
 
