@@ -9,10 +9,15 @@ import Hash from '@ioc:Adonis/Core/Hash'
 export default class LoginController {
   //make a login 
     public async login ({ request, auth }: HttpContextContract) {
-        const email = request.input('email')
-        const password = request.input('password')
+    
+            const { email, password } = request.only(['email', 'password'])
+        
+            const user = await Client.findBy('email', email)
+            if (!user || !(await Hash.verify(user.password, password))) {
+              return 400
+            }
         const token = await auth.use('api').attempt(email, password)
-        return token.toJSON()
+        return token.token
     }
     //make a logout 
 
